@@ -5,11 +5,12 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const app = express()
 const todoRouter = require("./routes/todo")
+var cors = require('cors');
 
 const PORT = process.env.PORT || 3030
 
 app.use(express.static('public'));
-
+app.use(cors())
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(logger('dev'));
