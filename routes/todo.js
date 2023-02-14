@@ -2,7 +2,12 @@ const express = require("express")
 const router = express.Router()
 const Model = require("../models/todo")
 
-router.get('/', async(req,res)=>{
+router.all((req, res, next) => {
+  res.statusCode = 200;
+  res.setHeader('Content-Type', 'text/plain');
+  next();
+})
+.get('/', async(req,res)=>{
    const todos = await Model.find({})
    try{
     res.status(200).json(todos)
@@ -36,6 +41,7 @@ router.get('/', async(req,res)=>{
        }
 })
 .put("/:id",(req,res)=>{
+
     const id = req.params.id
     const query = Model.findById(id);
     const update = {
